@@ -8,7 +8,7 @@ const ChatWidget = () => {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: `Hi! I'm with ${site.businessName}. 👋 Need remodeling, repairs, or construction help in ${site.baseCity}? Call ${site.phoneDisplay} and I'll get you scheduled.`,
+      content: `Hi! I'm with ${site.businessName}. 👋 Need kitchen, bathroom, or home remodeling help in ${site.baseCity}? Call ${site.phoneDisplay} and I'll get you scheduled.`,
     },
   ]);
   const [input, setInput] = useState("");

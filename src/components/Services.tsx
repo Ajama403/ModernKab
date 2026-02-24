@@ -1,16 +1,16 @@
-import { ArrowRight, Paintbrush, Wrench, Lightbulb, Ruler, Hammer } from "lucide-react";
+import { ArrowRight, Paintbrush, Wrench, Lightbulb, Ruler, Hammer, Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import site from "@/content/siteConfig";
 
 const Services = () => {
-  const serviceIcons = [Ruler, Paintbrush, Wrench, Lightbulb, Hammer];
+  const serviceIcons = [Ruler, Paintbrush, Wrench, Hammer, Lightbulb, Layers];
   const serviceImages = [
     "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1556909114-44e3e70034e2?auto=format&fit=crop&w=800&q=80",
     "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1503389152951-9f343605f61e?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1503387837-b154d5074bd2?auto=format&fit=crop&w=800&q=80",
-    "/hero.jpg",
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
   ];
   const services = site.services.map((service, index) => ({
     ...service,
@@ -26,12 +26,12 @@ const Services = () => {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-secondary font-semibold uppercase tracking-wider text-sm">Our Services</span>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-4 mb-6">
-            Construction, Remodels & Repairs
+            Kitchen, Bath & Home Remodeling
             <span className="text-gradient"> in {site.baseCity}</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            {site.businessName} delivers clean workmanship for remodels, updates, and repairs across {site.serviceArea}.
-            Call for fast scheduling and clear communication.
+            {site.businessName} delivers expert craftsmanship for kitchen, bathroom, and home remodeling across {site.serviceArea}.
+            From inception to completion in as little as 10 days.
           </p>
         </div>
 
@@ -61,11 +61,21 @@ const Services = () => {
               <div className="p-6">
                 <h3 className="text-xl font-bold text-card-foreground mb-3">{service.title}</h3>
                 <p className="text-muted-foreground mb-4 leading-relaxed">{service.description}</p>
+                {service.items && service.items.length > 0 && (
+                  <ul className="space-y-1.5 mb-4">
+                    {service.items.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-secondary shrink-0" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 <a
-                  href={`tel:${site.phoneTel}`}
+                  href="#contact"
                   className="inline-flex items-center text-secondary font-semibold hover:gap-3 gap-2 transition-all"
                 >
-                  Call Now
+                  Get Free Estimate
                   <ArrowRight className="w-4 h-4" />
                 </a>
               </div>
@@ -76,7 +86,7 @@ const Services = () => {
         {/* CTA */}
         <div className="text-center mt-12">
           <Button className="bg-gradient-gold text-primary-foreground hover:opacity-90 font-semibold h-12 px-8" asChild>
-            <a href={`tel:${site.phoneTel}`}>{site.contact.button}</a>
+            <a href="#contact">{site.contact.button}</a>
           </Button>
         </div>
       </div>

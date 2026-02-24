@@ -8,11 +8,12 @@ const Navbar = () => {
 
   const navLinks = [
     { name: "Home", href: "#home" },
+    { name: "About Us", href: "#about" },
     { name: "Services", href: "#services" },
-    { name: "Process", href: "#process" },
-    { name: "Gallery", href: "#gallery" },
+    { name: "Photo Gallery", href: "#gallery" },
     { name: "Reviews", href: "#reviews" },
-    { name: "Contact", href: "#contact" },
+    { name: "FAQ", href: "#faq" },
+    { name: "Contact Us", href: "#contact" },
   ];
 
   return (
@@ -21,17 +22,17 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <a href="#home" className="flex items-center gap-2">
-            <img src={site.images.logo} alt={`${site.businessName} logo`} className="w-14 h-14 object-contain" />
+            <img src={site.images.logo} alt={`${site.businessName} logo`} className="w-10 h-10 object-contain" />
             <div className="hidden sm:block">
-              <span className="font-bold text-xl text-foreground">{site.businessName}</span>
+              <span className="font-bold text-lg text-foreground">{site.businessName}</span>
               <span className="block text-xs text-muted-foreground -mt-1">
-                {site.category} • {site.baseCity}
+                {site.category} · {site.baseCity}
               </span>
             </div>
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => (
               <a
                 key={link.name}

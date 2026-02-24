@@ -1,11 +1,16 @@
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import ValueProps from "@/components/ValueProps";
 import About from "@/components/About";
 import Services from "@/components/Services";
 import Process from "@/components/Process";
+import CTABanner from "@/components/CTABanner";
 import Gallery from "@/components/Gallery";
 import Reviews from "@/components/Reviews";
+import ServiceArea from "@/components/ServiceArea";
+import FAQ from "@/components/FAQ";
+import Blog from "@/components/Blog";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
 import site from "@/content/siteConfig";
@@ -14,18 +19,16 @@ const Index = () => {
   const [city = "", region = ""] = site.baseCity.split(",").map((part) => part.trim());
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "GeneralContractor"],
+    "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
     name: site.businessName,
     description: site.seo.metaDescription,
     url: site.websiteUrl,
     telephone: site.phoneDisplay,
-    areaServed: [
-      {
-        "@type": "City",
-        name: city,
-        addressRegion: region,
-      },
-    ],
+    areaServed: site.neighborhoods.map((n) => ({
+      "@type": "City",
+      name: n,
+      addressRegion: region,
+    })),
     address: {
       "@type": "PostalAddress",
       streetAddress: site.address.street,
@@ -41,20 +44,17 @@ const Index = () => {
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
-        dayOfWeek: [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-          "Sunday",
-        ],
-        opens: "00:00",
-        closes: "23:59",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        opens: "10:00",
+        closes: "17:00",
       },
     ],
-    sameAs: [site.mapsUrl],
+    sameAs: [
+      site.mapsUrl,
+      site.socialLinks.facebook,
+      site.socialLinks.instagram,
+      site.socialLinks.google,
+    ],
   };
 
   useEffect(() => {
@@ -82,11 +82,16 @@ const Index = () => {
       <main className="min-h-screen">
         <Navbar />
         <Hero />
+        <ValueProps />
         <About />
         <Services />
         <Process />
+        <CTABanner />
         <Gallery />
         <Reviews />
+        <ServiceArea />
+        <FAQ />
+        <Blog />
         <Footer />
         <ChatWidget />
       </main>

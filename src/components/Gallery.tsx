@@ -1,15 +1,17 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import site from "@/content/siteConfig";
 
 const Gallery = () => {
-  const projects = site.images.gallery.map((image, index) => {
-    const service = site.services[index % site.services.length];
-    return {
-      image,
-      title: service.title,
-      category: service.title,
-    };
-  });
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const galleryImages = site.images.gallery;
+  const categories = ["All", ...Array.from(new Set(galleryImages.map((img) => img.category)))];
+
+  const filteredImages =
+    activeCategory === "All"
+      ? galleryImages
+      : galleryImages.filter((img) => img.category === activeCategory);
 
   return (
     <section id="gallery" className="py-24 bg-muted/30">
@@ -19,7 +21,7 @@ const Gallery = () => {
           <span className="text-secondary font-semibold uppercase tracking-wider text-sm">Our Work</span>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-4 mb-6">
             Recent Projects &
-            <span className="text-gradient"> Clean Installs</span>
+            <span className="text-gradient"> Transformations</span>
           </h2>
           <p className="text-muted-foreground text-lg">
             Remodeling, repairs, and construction projects completed for homeowners in {site.baseCity} and
@@ -27,15 +29,32 @@ const Gallery = () => {
           </p>
         </div>
 
+        {/* Filter Tabs */}
+        <div className="flex flex-wrap justify-center gap-3 mb-10">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
+                activeCategory === cat
+                  ? "bg-gradient-gold text-primary-foreground"
+                  : "bg-card text-foreground hover:bg-muted shadow-card"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
         {/* Gallery Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
+          {filteredImages.map((project, index) => (
             <div
               key={index}
               className="group relative rounded-2xl overflow-hidden cursor-pointer aspect-[4/3]"
             >
               <img
-                src={project.image}
+                src={project.src}
                 alt={`${project.title} by ${site.businessName}`}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
               />
@@ -51,7 +70,7 @@ const Gallery = () => {
         {/* CTA */}
         <div className="text-center mt-12">
           <Button className="bg-gradient-gold text-primary-foreground hover:opacity-90 font-semibold h-12 px-8" asChild>
-            <a href={`tel:${site.phoneTel}`}>{site.contact.button}</a>
+            <a href="#contact">{site.contact.button}</a>
           </Button>
         </div>
       </div>
